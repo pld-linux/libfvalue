@@ -2,7 +2,7 @@ Summary:	Library to support various format value types
 Summary(pl.UTF-8):	Biblioteka obsługująca różne typy formatów wartości
 Name:		libfvalue
 Version:	20150104
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Libraries
 Source0:	https://github.com/libyal/libfvalue/archive/%{version}/%{name}-%{version}.tar.gz
