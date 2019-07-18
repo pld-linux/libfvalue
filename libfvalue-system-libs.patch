@@ -1,68 +1,170 @@
---- libfvalue-20150104/configure.ac.orig	2015-01-22 18:32:08.452473545 +0100
-+++ libfvalue-20150104/configure.ac	2015-01-22 20:48:07.308797816 +0100
-@@ -148,15 +148,6 @@ dnl Have configure make the Makefiles
- AC_CONFIG_FILES([Makefile])
- AC_CONFIG_FILES([include/Makefile])
- AC_CONFIG_FILES([common/Makefile])
--AC_CONFIG_FILES([libcstring/Makefile])
--AC_CONFIG_FILES([libcerror/Makefile])
--AC_CONFIG_FILES([libcthreads/Makefile])
--AC_CONFIG_FILES([libcdata/Makefile])
--AC_CONFIG_FILES([libcnotify/Makefile])
--AC_CONFIG_FILES([libuna/Makefile])
--AC_CONFIG_FILES([libfdatetime/Makefile])
--AC_CONFIG_FILES([libfguid/Makefile])
--AC_CONFIG_FILES([libfwnt/Makefile])
- AC_CONFIG_FILES([libfvalue/Makefile])
- AC_CONFIG_FILES([po/Makefile.in])
- AC_CONFIG_FILES([po/Makevars])
---- libfvalue-20150104/Makefile.am.orig	2015-01-22 18:32:07.832473571 +0100
-+++ libfvalue-20150104/Makefile.am	2015-01-22 20:48:22.792130500 +0100
-@@ -3,15 +3,6 @@ ACLOCAL_AMFLAGS = -I m4
- SUBDIRS = \
- 	include \
- 	common \
--	libcstring \
--	libcerror \
--	libcthreads \
--	libcdata \
--	libcnotify \
--	libuna \
--	libfdatetime \
--	libfguid \
--	libfwnt \
- 	libfvalue \
- 	po \
- 	manuals	\
-@@ -62,15 +53,6 @@ lib: library
+--- libfvalue-20190626.orig/libfvalue/libfvalue_filetime.c	2019-06-24 06:09:47.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_filetime.c	2019-07-18 17:32:18.065229647 +0200
+@@ -27,7 +27,7 @@
+ #include "libfvalue_libcerror.h"
+ #include "libfvalue_libfdatetime.h"
  
- library:
- 	(cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcstring && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcthreads && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcdata && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcnotify && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libuna && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libfdatetime && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libfguid && $(MAKE) $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libfwnt && $(MAKE) $(AM_MAKEFLAGS))
- 	(cd $(srcdir)/libfvalue && $(MAKE) $(AM_MAKEFLAGS))
- 	(cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS))
+-#if defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME )
++#if defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME )
  
-@@ -87,15 +69,6 @@ distclean: clean
- 	done && test -z "$$fail"
+ /* Copies the filetime from an integer value
+  * Returns 1 if successful or -1 on error
+@@ -109,5 +109,5 @@
+ 	return( 1 );
+ }
  
- splint:
--	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcerror && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcthreads && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcdate && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libcnotify && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libuna && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libfdatetime && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libfguid && $(MAKE) splint $(AM_MAKEFLAGS))
--	(cd $(srcdir)/libfwnt && $(MAKE) splint $(AM_MAKEFLAGS))
- 	(cd $(srcdir)/libfvalue && $(MAKE) splint $(AM_MAKEFLAGS))
- 	(cd $(srcdir)/po && $(MAKE) splint $(AM_MAKEFLAGS))
- 	(cd $(srcdir)/tests && $(MAKE) splint $(AM_MAKEFLAGS))
+-#endif /* defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
++#endif /* defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
+ 
+--- libfvalue-20190626.orig/libfvalue/libfvalue_filetime.h	2019-06-24 06:09:47.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_filetime.h	2019-07-18 17:32:18.065229647 +0200
+@@ -32,7 +32,7 @@
+ extern "C" {
+ #endif
+ 
+-#if defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME )
++#if defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME )
+ 
+ int libfvalue_filetime_copy_from_integer(
+      libfdatetime_filetime_t *filetime,
+@@ -46,7 +46,7 @@
+      size_t *integer_value_size,
+      libcerror_error_t **error );
+ 
+-#endif /* defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
++#endif /* defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
+ 
+ #if defined( __cplusplus )
+ }
+--- libfvalue-20190626.orig/libfvalue/libfvalue_libfdatetime.h	2019-06-24 06:11:02.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_libfdatetime.h	2019-07-18 17:32:18.065229647 +0200
+@@ -41,7 +41,7 @@
+ 
+ /* Note that libfvalue does not require to have libfdatetime support
+  */
+-#elif defined( HAVE_LIBFDATETIME_H )
++#elif defined( HAVE_LIBFDATETIME )
+ 
+ /* If libtool DLL support is enabled set LIBFDATETIME_DLL_IMPORT
+  * before including libfdatetime.h
+--- libfvalue-20190626.orig/libfvalue/libfvalue_libfguid.h	2019-06-24 06:11:02.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_libfguid.h	2019-07-18 17:32:18.065229647 +0200
+@@ -34,7 +34,7 @@
+ 
+ /* Note that libfvalue does not require to have libfguid support
+  */
+-#elif defined( HAVE_LIBFGUID_H )
++#elif defined( HAVE_LIBFGUID )
+ 
+ /* If libtool DLL support is enabled set LIBFGUID_DLL_IMPORT
+  * before including libfguid.h
+--- libfvalue-20190626.orig/libfvalue/libfvalue_libfwnt.h	2019-06-24 06:11:02.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_libfwnt.h	2019-07-18 17:32:18.065229647 +0200
+@@ -40,7 +40,7 @@
+ 
+ /* Note that libfvalue does not require to have libfwnt support
+  */
+-#elif defined( HAVE_LIBFWNT_H )
++#elif defined( HAVE_LIBFWNT )
+ 
+ /* If libtool DLL support is enabled set LIBFWNT_DLL_IMPORT
+  * before including libfwnt.h
+--- libfvalue-20190626.orig/libfvalue/libfvalue_value_type.c	2019-06-25 21:10:52.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_value_type.c	2019-07-18 17:32:18.068562963 +0200
+@@ -36,15 +36,15 @@
+ #include "libfvalue_value.h"
+ #include "libfvalue_value_type.h"
+ 
+-#if defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME )
++#if defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME )
+ #include "libfvalue_libfdatetime.h"
+ #endif
+ 
+-#if defined( HAVE_LIBFGUID_H ) || defined( HAVE_LOCAL_LIBFGUID )
++#if defined( HAVE_LIBFGUID ) || defined( HAVE_LOCAL_LIBFGUID )
+ #include "libfvalue_libfguid.h"
+ #endif
+ 
+-#if defined( HAVE_LIBFWNT_H ) || defined( HAVE_LOCAL_LIBFWNT )
++#if defined( HAVE_LIBFWNT ) || defined( HAVE_LOCAL_LIBFWNT )
+ #include "libfvalue_libfwnt.h"
+ #endif
+ 
+@@ -383,7 +383,7 @@
+ 			          error );
+ 			break;
+ 
+-#if defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME )
++#if defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME )
+ 		case LIBFVALUE_VALUE_TYPE_FAT_DATE_TIME:
+ 			result = libfvalue_value_initialize(
+ 			          value,
+@@ -605,9 +605,9 @@
+ 			          flags,
+ 			          error );
+ 			break;
+-#endif /* defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
++#endif /* defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
+ 
+-#if defined( HAVE_LIBFGUID_H ) || defined( HAVE_LOCAL_LIBFGUID )
++#if defined( HAVE_LIBFGUID ) || defined( HAVE_LOCAL_LIBFGUID )
+ 		case LIBFVALUE_VALUE_TYPE_GUID:
+ 			result = libfvalue_value_initialize(
+ 			          value,
+@@ -644,9 +644,9 @@
+ 			          flags,
+ 			          error );
+ 			break;
+-#endif /* defined( HAVE_LIBFGUID_H ) || defined( HAVE_LOCAL_LIBFGUID ) */
++#endif /* defined( HAVE_LIBFGUID ) || defined( HAVE_LOCAL_LIBFGUID ) */
+ 
+-#if defined( HAVE_LIBFWNT_H ) || defined( HAVE_LOCAL_LIBFWNT )
++#if defined( HAVE_LIBFWNT ) || defined( HAVE_LOCAL_LIBFWNT )
+ 		case LIBFVALUE_VALUE_TYPE_NT_SECURITY_IDENTIFIER:
+ 			result = libfvalue_value_initialize(
+ 			          value,
+@@ -683,7 +683,7 @@
+ 			          flags,
+ 			          error );
+ 			break;
+-#endif /* defined( HAVE_LIBFWNT_H ) || defined( HAVE_LOCAL_LIBFWNT ) */
++#endif /* defined( HAVE_LIBFWNT ) || defined( HAVE_LOCAL_LIBFWNT ) */
+ 
+ 		default:
+ 			libcerror_error_set(
+@@ -1077,7 +1077,7 @@
+ 	return( last_data_index );
+ }
+ 
+-#if defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME )
++#if defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME )
+ 
+ /* Helper function for libfvalue value type to covert a byte stream into a POSIX time using libfdatetime
+  * Returns 1 if successful or -1 on error
+@@ -1175,5 +1175,5 @@
+ 	return( 1 );
+ }
+ 
+-#endif /* defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
++#endif /* defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
+ 
+--- libfvalue-20190626.orig/libfvalue/libfvalue_value_type.h	2019-06-25 20:48:17.000000000 +0200
++++ libfvalue-20190626/libfvalue/libfvalue_value_type.h	2019-07-18 17:32:18.065229647 +0200
+@@ -81,7 +81,7 @@
+          int encoding,
+          libcerror_error_t **error );
+ 
+-#if defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME )
++#if defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME )
+ 
+ int libfvalue_value_type_posix_time_copy_from_byte_stream(
+      libfdatetime_posix_time_t *posix_time,
+@@ -90,7 +90,7 @@
+      int encoding,
+      libcerror_error_t **error );
+ 
+-#endif /* defined( HAVE_LIBFDATETIME_H ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
++#endif /* defined( HAVE_LIBFDATETIME ) || defined( HAVE_LOCAL_LIBFDATETIME ) */
+ 
+ #if defined( __cplusplus )
+ }

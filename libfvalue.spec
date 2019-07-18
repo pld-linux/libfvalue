@@ -1,38 +1,45 @@
+# see m4/${libname}.m4 />= for required version of particular library
+%define		libcdata_ver		20190112
+%define		libcerror_ver		20120425
+%define		libcnotify_ver		20120425
+%define		libcthreads_ver		20160404
+%define		libfdatetime_ver	20180910
+%define		libfguid_ver		20120426
+%define		libfwnt_ver		20161103
+%define		libuna_ver		20181006
 Summary:	Library to support various format value types
 Summary(pl.UTF-8):	Biblioteka obsługująca różne typy formatów wartości
 Name:		libfvalue
-Version:	20150104
-Release:	2
+Version:	20190626
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
-Source0:	https://github.com/libyal/libfvalue/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	bd1744914612ada381ca4c18d5348493
+#Source0Download: https://github.com/libyal/libfvalue/releases
+Source0:	https://github.com/libyal/libfvalue/releases/download/%{version}/%{name}-experimental-%{version}.tar.gz
+# Source0-md5:	d5720a0206e2b9a9ea034e3a732ec796
 Patch0:		%{name}-system-libs.patch
 URL:		https://github.com/libyal/libfvalue/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.6
 BuildRequires:	gettext-tools >= 0.18.1
-BuildRequires:	libcdata-devel >= 20150102
-BuildRequires:	libcerror-devel >= 20120425
-BuildRequires:	libcnotify-devel >= 20120425
-BuildRequires:	libcstring-devel >= 20120425
-BuildRequires:	libcthreads-devel >= 20130509
-BuildRequires:	libfdatetime-devel >= 20130928
-BuildRequires:	libfguid-devel >= 20120426
-BuildRequires:	libfwnt-devel >= 20120426
-BuildRequires:	libuna-devel >= 20120425
+BuildRequires:	libcdata-devel >= %{libcdata_ver}
+BuildRequires:	libcerror-devel >= %{libcerror_ver}
+BuildRequires:	libcnotify-devel >= %{libcnotify_ver}
+BuildRequires:	libcthreads-devel >= %{libcthreads_ver}
+BuildRequires:	libfdatetime-devel >= %{libfdatetime_ver}
+BuildRequires:	libfguid-devel >= %{libfguid_ver}
+BuildRequires:	libfwnt-devel >= %{libfwnt_ver}
+BuildRequires:	libuna-devel >= %{libuna_ver}
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-BuildRequires:	sed >= 4.0
-Requires:	libcdata >= 20150102
-Requires:	libcerror >= 20120425
-Requires:	libcnotify >= 20120425
-Requires:	libcstring >= 20120425
-Requires:	libcthreads >= 20130509
-Requires:	libfdatetime >= 20130928
-Requires:	libfguid >= 20120426
-Requires:	libfwnt >= 20120426
-Requires:	libuna >= 20120425
+Requires:	libcdata >= %{libcdata_ver}
+Requires:	libcerror >= %{libcerror_ver}
+Requires:	libcnotify >= %{libcnotify_ver}
+Requires:	libcthreads >= %{libcthreads_ver}
+Requires:	libfdatetime >= %{libfdatetime_ver}
+Requires:	libfguid >= %{libfguid_ver}
+Requires:	libfwnt >= %{libfwnt_ver}
+Requires:	libuna >= %{libuna_ver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -46,15 +53,14 @@ Summary:	Header files for libfvalue library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libfvalue
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libcdata-devel >= 20150102
-Requires:	libcerror-devel >= 20120425
-Requires:	libcnotify-devel >= 20120425
-Requires:	libcstring-devel >= 20120425
-Requires:	libcthreads-devel >= 20130509
-Requires:	libfdatetime-devel >= 20130928
-Requires:	libfguid-devel >= 20120426
-Requires:	libfwnt-devel >= 20120426
-Requires:	libuna-devel >= 20120425
+Requires:	libcdata-devel >= %{libcdata_ver}
+Requires:	libcerror-devel >= %{libcerror_ver}
+Requires:	libcnotify-devel >= %{libcnotify_ver}
+Requires:	libcthreads-devel >= %{libcthreads_ver}
+Requires:	libfdatetime-devel >= %{libfdatetime_ver}
+Requires:	libfguid-devel >= %{libfguid_ver}
+Requires:	libfwnt-devel >= %{libfwnt_ver}
+Requires:	libuna-devel >= %{libuna_ver}
 
 %description devel
 Header files for libfvalue library.
@@ -80,7 +86,6 @@ Statyczna biblioteka libfvalue.
 
 %build
 %{__gettextize}
-%{__sed} -i -e 's/ po\/Makefile.in//' configure.ac
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
