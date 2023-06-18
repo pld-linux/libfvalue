@@ -1,23 +1,22 @@
 # see m4/${libname}.m4 />= for required version of particular library
-%define		libcdata_ver		20190112
+%define		libcdata_ver		20220115
 %define		libcerror_ver		20120425
 %define		libcnotify_ver		20120425
 %define		libcthreads_ver		20160404
 %define		libfdatetime_ver	20180910
 %define		libfguid_ver		20120426
-%define		libfwnt_ver		20161103
-%define		libuna_ver		20181006
+%define		libfwnt_ver		20191217
+%define		libuna_ver		20210801
 Summary:	Library to support various format value types
 Summary(pl.UTF-8):	Biblioteka obsługująca różne typy formatów wartości
 Name:		libfvalue
-Version:	20190626
+Version:	20220120
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/libyal/libfvalue/releases
 Source0:	https://github.com/libyal/libfvalue/releases/download/%{version}/%{name}-experimental-%{version}.tar.gz
-# Source0-md5:	d5720a0206e2b9a9ea034e3a732ec796
-Patch0:		%{name}-system-libs.patch
+# Source0-md5:	61b91521fc5ac42d6e8192446c473864
 URL:		https://github.com/libyal/libfvalue/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1.6
@@ -82,7 +81,6 @@ Statyczna biblioteka libfvalue.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__gettextize}
