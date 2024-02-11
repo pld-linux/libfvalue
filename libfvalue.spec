@@ -1,26 +1,26 @@
 # see m4/${libname}.m4 />= for required version of particular library
-%define		libcdata_ver		20220115
+%define		libcdata_ver		20230108
 %define		libcerror_ver		20120425
 %define		libcnotify_ver		20120425
 %define		libcthreads_ver		20160404
 %define		libfdatetime_ver	20180910
 %define		libfguid_ver		20120426
 %define		libfwnt_ver		20191217
-%define		libuna_ver		20210801
+%define		libuna_ver		20230702
 Summary:	Library to support various format value types
 Summary(pl.UTF-8):	Biblioteka obsługująca różne typy formatów wartości
 Name:		libfvalue
-Version:	20220120
+Version:	20240124
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/libyal/libfvalue/releases
 Source0:	https://github.com/libyal/libfvalue/releases/download/%{version}/%{name}-experimental-%{version}.tar.gz
-# Source0-md5:	61b91521fc5ac42d6e8192446c473864
+# Source0-md5:	fb09e01c6925a118c87aa69c70329089
 URL:		https://github.com/libyal/libfvalue/
-BuildRequires:	autoconf >= 2.59
+BuildRequires:	autoconf >= 2.71
 BuildRequires:	automake >= 1.6
-BuildRequires:	gettext-tools >= 0.18.1
+BuildRequires:	gettext-tools >= 0.21
 BuildRequires:	libcdata-devel >= %{libcdata_ver}
 BuildRequires:	libcerror-devel >= %{libcerror_ver}
 BuildRequires:	libcnotify-devel >= %{libcnotify_ver}
@@ -29,7 +29,7 @@ BuildRequires:	libfdatetime-devel >= %{libfdatetime_ver}
 BuildRequires:	libfguid-devel >= %{libfguid_ver}
 BuildRequires:	libfwnt-devel >= %{libfwnt_ver}
 BuildRequires:	libuna-devel >= %{libuna_ver}
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
 BuildRequires:	pkgconfig
 Requires:	libcdata >= %{libcdata_ver}
 Requires:	libcerror >= %{libcerror_ver}
