@@ -10,13 +10,13 @@
 Summary:	Library to support various format value types
 Summary(pl.UTF-8):	Biblioteka obsługująca różne typy formatów wartości
 Name:		libfvalue
-Version:	20240124
+Version:	20240415
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/libyal/libfvalue/releases
 Source0:	https://github.com/libyal/libfvalue/releases/download/%{version}/%{name}-experimental-%{version}.tar.gz
-# Source0-md5:	fb09e01c6925a118c87aa69c70329089
+# Source0-md5:	eef7a01e5f0dc862c9db0c947a0d10d9
 URL:		https://github.com/libyal/libfvalue/
 BuildRequires:	autoconf >= 2.71
 BuildRequires:	automake >= 1.6
